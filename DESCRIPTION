@@ -15,4 +15,7 @@ Imports:
     biovizBase,
     ggsci,
     export,
-    ggbio
+    ggbio,
+    data.table,
+    rlang
+RoxygenNote: 6.1.1

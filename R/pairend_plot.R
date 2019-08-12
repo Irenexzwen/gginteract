@@ -3,27 +3,75 @@ pairend_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2
   k <- pairend_inter(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0,VEXON=10)
 
   ideo_width <- (k@.TopRight_x - k@.TopLeft_x)/3
-  yd <- k@.Top_y + k@.VEXON*3 # ydrift
+  yd <- k@.Top_y + k@.VEXON # ydrift
   width_ratio <- ideo_width/k@.VEXON
 
-  genome_ <- genome
   # ideogram
-  leftideo <- creat_ideo(genome="hg38",
+  leftideo <- creat_ideo(genome=genome,
                          k@geneleft@chr,
                          ideo.width=ideo_width,
                          ydrift=yd,
                          xdrift=k@.TopLeft_x,
                          whratio = width_ratio)
 
-  rightideo <- creat_ideo(genome="hg38",
+    rightideo <- creat_ideo(genome=genome,
                          k@generight@chr,
                          ideo.width=ideo_width,
                          ydrift=yd,
                          xdrift=k@.TopRight_x - ideo_width,
                          whratio = width_ratio)
 
+  # add tick region ------------------------------------------------------
+  leftideo <- ideo_add_highlight(ideo = leftideo,
+                               region = c(k@geneleft@chromstart, k@geneleft@chromend),
+                               tick_len = k@.VEXON*1.6
+  )
 
-  ggplot() + leftideo@geom_ideobody + rightideo@geom_ideobody+ k@geom_pair
+  rightideo <- ideo_add_highlight(ideo = rightideo,
+                                region = c(k@generight@chromstart, k@generight@chromend),
+                                tick_len = k@.VEXON*1.6
+  )
+
+  # add-dash line -----------------------------------------------
+  dash <- data.frame(x = c(leftideo@.leftregion,
+                           k@.TopLeft_x,
+                           leftideo@.rightregion,
+                           k@.gr1_left,
+                           rightideo@.leftregion,
+                           k@.gr2_right,
+                           rightideo@.rightregion,
+                           k@.TopRight_x),
+                     y = c(leftideo@.tick_bot,
+                           k@.Top_y,
+                           leftideo@.tick_bot,
+                           k@.Top_y,
+                           rightideo@.tick_bot,
+                           k@.Top_y,
+                           rightideo@.tick_bot,
+                           k@.Top_y))
+
+  dash['group'] <- rep(seq(1,4),each=2)
+
+
+  # plot ideogram text -----------------------------------------------------
+  format_ <- function(x){
+    return(formatC(x,format = "f", big.mark = ",",drop0trailing = T))
+  }
+  text_right <- paste0(k@geneleft@chr,":",format_(k@geneleft@chromstart),"-",format_(k@geneleft@chromend))
+  text_left <- paste0(k@generight@chr,":",format_(k@generight@chromstart),"-",format_(k@generight@chromend))
+  left_center <- (leftideo@.ideo_left+leftideo@.ideo_right)/2
+  right_center <- (rightideo@.ideo_left+rightideo@.ideo_right)/2
+  ideotext <- data.frame(x=c(left_center,right_center),
+                         y=c(rightideo@.tick_top,leftideo@.tick_top),
+                         labels = c(text_left,text_right))
+
+  nudge <- k@.VEXON
+  # plot all ----------------------------------------------------
+
+  ggplot() +k@geom_pair+ leftideo@geom_ideobody + rightideo@geom_ideobody+
+    rightideo@geom_tick + leftideo@geom_tick+
+    geom_line(data = dash, aes(x=x, y=y, group=group), linetype="dashed",color = "red")+
+    geom_text(data=ideotext, aes(x=x, y=y+nudge), label=ideotext$labels)
   }
 
 
@@ -79,6 +127,10 @@ pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
     }
   }
 
+  # split ppi into read1 DF and read2 DF to avoid color fill conflict with ideogram
+  ppi_left <- ppi[ppi$chr == GENE1_anno@chr_num,]
+  ppi_right <- ppi[ppi$chr == GENE2_anno@chr_num,]
+
   # draw gene anno track
   # GENE1 on the left and GENE2 on the right
   GENE1_anno@anno['yvalue'] <- max(ppi$yvalue)+HEIGHT*3
@@ -101,12 +153,11 @@ pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
                        y=c(gr1$yvalue[1],gr2$yvalue[1]),
                        label=c(GENE1_anno@name,GENE2_anno@name))
 
-  # reads fill color ------------------------------------------------------
-  col <- ifelse(ppi$chr == GENE1_anno@chr, GENE1_COLOR, GENE2_COLOR)
 
   p <- list(
     geom_line(data=ppi,aes(xstart,y=yvalue+HEIGHT/2,group=pair),size=0.1,color="darkgrey"),
-    geom_rect(data=ppi,aes(xmin=xstart,ymin=yvalue,xmax=xend,ymax=yvalue+HEIGHT,fill=col)),
+    geom_rect(data=ppi_left,aes(xmin=xstart,ymin=yvalue,xmax=xend,ymax=yvalue+HEIGHT),color=GENE1_COLOR,fill=GENE1_COLOR),
+    geom_rect(data=ppi_right,aes(xmin=xstart,ymin=yvalue,xmax=xend,ymax=yvalue+HEIGHT),color=GENE2_COLOR,fill=GENE2_COLOR),
     geom_line(data=gr1,aes(start,y=yvalue),size=1,color="darkgrey"),
     geom_rect(data=gr1,aes(xmin=start,ymin=yvalue-HEIGHT/2,xmax=end,ymax=yvalue+HEIGHT/2),color="darkgrey",fill="darkgrey"),
     geom_line(data=gr2,aes(start,y=yvalue),size=1,color="darkgrey"),
@@ -133,6 +184,8 @@ pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
              .BotRight_x = max(ppi$xend[ppi$chr == GENE2_anno@chr_num]),
              .Top_y = gr1$yvalue[1]+HEIGHT/2,
              .Bot_y = ppi$yvalue[1]-HEIGHT/2,
+             .gr1_left = max(gr1$end),
+             .gr2_right = min(gr2$start),
              .VEXON = VEXON))
 
 }

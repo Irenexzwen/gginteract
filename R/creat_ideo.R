@@ -2,8 +2,7 @@
 #'
 #' @param genome String. Genome version eg."hg38","mm10","mm20". default("hg38")
 #' @param chr String. Subchr of \code{geome} eg."chr4"
-#' @param ideo.height Numeric. Absolute height of the ideogram ggplot object
-#' @param ideo.width Numeric. Absolute width of the ideogram ggplot object
+#' @param ideo.width Numeric. Width of the ideogram ggplot object.
 #' @param ydrift Numeric. x axis dirft from 0.
 #' @param xdrift Numeric. y axis dirft from 0.
 #'
@@ -33,9 +32,11 @@ creat_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=16
 
   scale <- max(df$end)/ideo.width
   df$start <- df$start/scale + xdrift
-  df$end <- df$end/scale + xdrift
+  df$end <-   df$end/scale + xdrift
   df$width <- df$width/scale
 
+  left <- min(df$start)
+  right <- max(df$end)
 
   cytobandColor <- getOption("biovizBase")$cytobandColor
   df.rect <- subset(df, gieStain != "acen")
@@ -221,7 +222,10 @@ creat_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=16
              ydrift = ydrift,
              chr_start = chr_start,
              chr_end = chr_end,
-             .plot_scale = scale))
+             .plot_scale = scale,
+             .ideo_left = left,
+             .ideo_right = right
+             ))
 
 }
 

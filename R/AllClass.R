@@ -1,14 +1,16 @@
 setClass(Class="ideo",
          representation(
-           geom_ideobody="list",
-           geom_tick="list",
-           chr="character",
-           height="numeric",
-           xdrift="numeric",
-           ydrift="numeric",
-           chr_start="numeric",
-           chr_end="numeric",
+           geom_ideobody = "list",
+           geom_tick = "list",
+           chr = "character",
+           height = "numeric",
+           xdrift = "numeric",
+           ydrift = "numeric",
+           chr_start = "numeric",
+           chr_end = "numeric",
            .plot_scale = "numeric",
+           .ideo_left = "numeric",
+           .ideo_right = "numeric",
            .tick_top = "numeric",
            .tick_bot = "numeric",
            .leftregion = "numeric",
@@ -17,7 +19,7 @@ setClass(Class="ideo",
 )
 
 # datastructure for one transcript
-setClass(Class="gene_anno",
+setClass(Class = "gene_anno",
          representation(
            name = "character",
            chr_num = "character",
@@ -61,6 +63,8 @@ setClass(Class="pairend",
            .BotRight_x = "numeric", #read2 right x
            .Top_y = "numeric",      #gene1/2 top
            .Bot_y = "numeric",      #read1/2 bot
+           .gr1_left = "numeric",   #leftgene anno right
+           .gr2_right = "numeric",  #rightgene anno left
            .VEXON = "numeric"
          )
 )
