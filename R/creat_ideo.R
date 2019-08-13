@@ -27,7 +27,8 @@ create_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=1
   ideo.height <- ideo.width/whratio
 
   if(ydrift>0){
-  .ideo.range <- c(ydrift,ydrift+ideo.height) }
+    .ideo.range <- c(ydrift,ydrift+ideo.height)
+    }
   else{
     .ideo.range <- c(ydrift-ideo.height,ydrift)
   }
