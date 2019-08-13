@@ -16,6 +16,8 @@
 GENE1_anno
 }
 \description{
-GENE1 annotation dataframe
+A dataset containing the basic format of a gene annotation dataframe.
+each row represents an exon with start and end coordinates of it.
+for the use of function \code{gene_anno} it requires \strong{at least first three columns}.
 }
 \keyword{datasets}

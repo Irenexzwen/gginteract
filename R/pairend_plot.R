@@ -12,7 +12,7 @@
 #' @param genome String. Genome version eg."hg38","mm10","mm20". default "hg38"
 #'
 #' @return ggplot object of pairend interaction plot
-#' @export
+#' @export pairend_plot
 #'
 #' @examples
 #' data(GENE1_anno,GENE2_anno,R1,R2)
