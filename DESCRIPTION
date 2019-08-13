@@ -13,9 +13,17 @@ Imports:
     ggplot2,
     RColorBrewer,
     biovizBase,
-    ggsci,
     export,
-    ggbio,
     data.table,
-    rlang
+    rlang,
+    magrittr
 RoxygenNote: 6.1.1
+Collate: 
+    'AllClass.R'
+    'gginter_utils.R'
+    'creat_ideo.R'
+    'data.R'
+    'ideo_add_highlight.R'
+    'pairend_plot.R'
+    'parallel_plot.R'
+    'utils-pipe.R'
