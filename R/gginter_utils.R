@@ -9,10 +9,11 @@
 #'
 #' @examples data(GENE1_anno) anno1 <- gene_anno(GENE1_anno)
 #' gene1 <- gene_anno(DF)
-gene_anno <- function(gene_anno){
+gene_anno <- function(gene_anno,genename=""){
     colnames(gene_anno) <- c("chr","start","end")
     return(new("gene_anno",
-               name = basename(file_name) %>% gsub("\\..*$","",.), # need refine NC*
+               #name = basename(file_name) %>% gsub("\\..*$","",.), # need refine NC*
+               name = genename
                chr_num = gene_anno$chr[1] %>% gsub("chr","",.),
                chr = gene_anno$chr[1],
                chromstart = min(gene_anno$start),

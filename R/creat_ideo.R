@@ -49,7 +49,7 @@ create_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=1
 
   ## main
   p.ideo <- list(do.call(ggplot2::geom_rect, c(list(data = df.rect),
-                                               list(do.call(ggplot2::aes,list(xmin = as.name("start"),
+                                               list(do.call(ggplot2::ggplot2::aes,list(xmin = as.name("start"),
                                                                      ymin =.ideo.range[1],
                                                                      xmax = as.name("end"),
                                                                      ymax = .ideo.range[2],
@@ -74,15 +74,15 @@ create_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=1
 
 
     p.ideo <- c(p.ideo, list(do.call(ggplot2::geom_segment, c(list(data = df.p.d),
-                                                              list(aes(x = x, y = y, xend = xend, yend = yend)),
+                                                              list(ggplot2::aes(x = x, y = y, xend = xend, yend = yend)),
                                                               list(color = "black",
                                                                    alpha = 1, size = 0.3)))))
     p.ideo <- c(p.ideo, list(do.call(ggplot2::geom_segment, c(list(data = df.p.d),
-                                                              list(aes(x = x, y = y2, xend = xend, yend = yend2)),
+                                                              list(ggplot2::aes(x = x, y = y2, xend = xend, yend = yend2)),
                                                               list(color = "black",
                                                                    alpha = 1, size = 0.3)))))
     p.ideo <- c(p.ideo, list(do.call(ggplot2::geom_segment, c(list(data = df.p.d),
-                                                              list(aes(x = x, y = y, xend = x, yend = y2)),
+                                                              list(ggplot2::aes(x = x, y = y, xend = x, yend = y2)),
                                                               list(color = "black",
                                                                    alpha = 1, size = 0.3)))))
   }
@@ -100,16 +100,16 @@ create_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=1
 
 
     p.ideo <- c(p.ideo, list(do.call(ggplot2::geom_segment, c(list(data = df.q.d),
-                                                              list(aes(x = x, y = y, xend = xend, yend = yend)),
+                                                              list(ggplot2::aes(x = x, y = y, xend = xend, yend = yend)),
                                                               list(color = "black",
                                                                    alpha = 1, size = 0.3)))))
     p.ideo <- c(p.ideo, list(do.call(ggplot2::geom_segment, c(list(data = df.q.d),
-                                                              list(aes(x = x, y = y2, xend = xend, yend = yend2)),
+                                                              list(ggplot2::aes(x = x, y = y2, xend = xend, yend = yend2)),
                                                               list(color = "black",
                                                                    alpha = 1, size = 0.3)))))
 
     p.ideo <- c(p.ideo, list(do.call(ggplot2::geom_segment, c(list(data = df.q.d),
-                                                              list(aes(x = xend, y = y, xend = xend, yend = y2)),
+                                                              list(ggplot2::aes(x = xend, y = y, xend = xend, yend = y2)),
                                                               list(color = "black",
                                                                    alpha = 1, size = 0.3)))))
 
@@ -132,16 +132,16 @@ create_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=1
 
 
     p.ideo <- c(p.ideo, list(do.call(ggplot2::geom_segment, c(list(data = df.q.d),
-                                                              list(aes(x = x, y = y, xend = xend, yend = yend)),
+                                                              list(ggplot2::aes(x = x, y = y, xend = xend, yend = yend)),
                                                               list(color = "black",
                                                                    alpha = 1, size = 0.3)))))
     p.ideo <- c(p.ideo, list(do.call(ggplot2::geom_segment, c(list(data = df.q.d),
-                                                              list(aes(x = x, y = y2, xend = xend, yend = yend2)),
+                                                              list(ggplot2::aes(x = x, y = y2, xend = xend, yend = yend2)),
                                                               list(color = "black",
                                                                    alpha = 1, size = 0.3)))))
 
     p.ideo <- c(p.ideo, list(do.call(ggplot2::geom_segment, c(list(data = df.q.d),
-                                                              list(aes(x = xend, y = y, xend = xend, yend = y2)),
+                                                              list(ggplot2::aes(x = xend, y = y, xend = xend, yend = y2)),
                                                               list(color = "black",
                                                                    alpha = 1, size = 0.3)))))
 
@@ -172,14 +172,14 @@ create_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=1
   if(nrow(df.tri.p2) > 0L)
     p.ideo <- c(p.ideo,
                 list(geom_arch_flip2(df.tri.p2,
-                                     aes(x = x,
+                                     ggplot2::aes(x = x,
                                          y = y ,
                                          xend = xend,
                                          yend = yend,
                                          height = height),
                                      color = "black", size = 0.5),
                      geom_arch_flip(df.tri.p2,
-                                    aes(x = x,
+                                    ggplot2::aes(x = x,
                                         y = y ,
                                         xend = xend,
                                         yend = yend,
@@ -189,7 +189,7 @@ create_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=1
   if(nrow(df.tri.p2) > 0L)
     p.ideo <- c(p.ideo,
                 list(geom_arch_flip2(df.tri.q2,
-                                     aes(x = x,
+                                     ggplot2::aes(x = x,
                                          y = y ,
                                          xend = xend,
                                          yend = yend,
@@ -197,7 +197,7 @@ create_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=1
                                      color = "black",
                                      size = 0.5),
                      geom_arch_flip(df.tri.q2,
-                                    aes(x = x,
+                                    ggplot2::aes(x = x,
                                         y = y ,
                                         xend = xend,
                                         yend = yend,

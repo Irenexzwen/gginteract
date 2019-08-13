@@ -120,7 +120,7 @@ pairend_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2
 #' pairend_skeleton <- pairend_inter(GENE1_anno,GENE2_anno,R1,R2)
 #' ggplot()+pairend_skeleton@geom_pair
 
-pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0,VEXON=10){
+pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0,VEXON=10,genename1="",genename2=""){
 
 
   # reorganize R1 and R2 pair
@@ -145,8 +145,8 @@ pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
   ppi['yvalue'] <- rep(seq(1,nrow(ppi)/2)*VEXON,each=2)
 
   # genrate gene_anno class
-  GENE1_anno <-  gene_anno(GENE1_anno)
-  GENE2_anno <-  gene_anno(GENE2_anno)
+  GENE1_anno <-  gene_anno(GENE1_anno,genename1)
+  GENE2_anno <-  gene_anno(GENE2_anno,genename2)
 
   # set meta data
   HGAP = sum(GENE1_anno@genelen,GENE2_anno@genelen)*1.2

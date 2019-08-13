@@ -117,7 +117,7 @@ parallel_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
 #' data(GENE1_anno,GENE2_anno,R1,R2)
 #' para <- parallel_inter(GENE1_anno,GENE2_anno,R1,R2)
 #' ggplot() + para@geom_para
-parallel_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0){
+parallel_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0,genename1="",genename2=""){
 
 
   # reorganize R1 and R2 pair
@@ -141,8 +141,8 @@ parallel_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GEN
   ppi['pair'] <- factor(rep(seq(1,nrow(ppi)/2),each=2))
 
   # genrate gene_anno class
-  GENE1_anno <-  gene_anno(GENE1_anno)
-  GENE2_anno <-  gene_anno(GENE2_anno)
+  GENE1_anno <-  gene_anno(GENE1_anno,genename1)
+  GENE2_anno <-  gene_anno(GENE2_anno,genename2)
 
   VGAP = max(GENE1_anno@genelen,GENE2_anno@genelen)/3
   VEXON <- VGAP/20
