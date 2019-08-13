@@ -1,4 +1,4 @@
-#' Title parallel interaction plot
+#' Title Parallel interaction plot
 #' One-station function for parallel interaction plot
 #'
 #' @param GENE1_anno Character, path to gene1 annotation bed file. Gene1 will be shown at bottom
@@ -6,12 +6,14 @@
 #' @param R1 character, path to Read1 (first end) bed file
 #' @param R2 character, path to Read2 (second end) bed file
 #' @param GENE1_COLOR character, In R, colors can be specified either by name (e.g col = ¡°red¡±) or as a hexadecimal RGB triplet
-#' @param GENE2_COLOR character.
+#' @param GENE2_COLOR character.In R, colors can be specified either by name (e.g col = ¡°red¡±) or as a hexadecimal RGB triplet
 #'
 #' @return ggplot object
 #' @export
 #'
 #' @examples
+#' data(GENE1_anno,GENE2_anno,R1,R2)
+#' para <- parallel_plot(GENE1_anno,GENE2_anno,R1,R2)
 parallel_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",genome="hg38"){
 
   k <- parallel_inter(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1")
@@ -20,13 +22,13 @@ parallel_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
   xd <- k@.BotRight_x/2 - ideo_width/2
 
   # create ideogram based on parallel interaction skeleton ----
-  upideo <- creat_ideo(genome=genome,
+  upideo <- create_ideo(genome=genome,
                        k@genetop@chr,
                        ideo.width=ideo_width,
                        ydrift=k@.Top_y + k@.VEXON,
                        xdrift=xd)
 
-  botideo <- creat_ideo(genome=genome,
+  botideo <- create_ideo(genome=genome,
                         k@genebot@chr,
                         ideo.width=ideo_width,
                         ydrift=k@.Bot_y - k@.VEXON,
@@ -94,29 +96,32 @@ parallel_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
 
 
 
-# plot parallel interaction plot skeleton
 
-#' Title
+
+#' Title plot parallel interaction plot skeleton
 #'
-#' @param GENE1_anno Dataframe,
-#' @param GENE2_anno
-#' @param R1
-#' @param R2
-#' @param GENE1_COLOR
-#' @param GENE2_COLOR
-#' @param VGAP
-#' @param VEXON
+#' @param GENE1_anno Dataframe, gene annotaion bed file. eg could be seen \code{data(GENE1_anno)}
+#' @param GENE2_anno Dataframe, gene annotaion bed file. eg could be seen \code{data(GENE2_anno)}
+#' @param R1 Dataframe, Read1 annotation file. eg could be loaded with \code{data(R1)}
+#' @param R2 Dataframe, Read2 annotation file. eg could be loaded with \code{data(R2)}
+#' @param GENE1_COLOR String, with default "#deb210"
+#' @param GENE2_COLOR string, with default "#668ed1"
+#' @param xdrift numeric. x axis drift from 0.
+#' @param ydrift numeric. y axis drift from 0.
 #'
-#' @return
-#' @export
+#' @return para object
+#' @export para object
 #'
 #' @examples
+#' data(GENE1_anno,GENE2_anno,R1,R2)
+#' para <- parallel_inter(GENE1_anno,GENE2_anno,R1,R2)
+#' ggplot() + para@geom_para
 parallel_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0){
 
 
   # reorganize R1 and R2 pair
-  R1_bed <- read.table(R1,header = F,stringsAsFactors = F) %>% dplyr::arrange(V4)
-  R2_bed <- read.table(R2,header = F,stringsAsFactors = F) %>% dplyr::arrange(V4)
+  R1_bed <- R1 %>% dplyr::arrange(V4)
+  R2_bed <- R2 %>% dplyr::arrange(V4)
 
   ppi <- rbind(R1_bed,R2_bed) %>% dplyr::arrange(V4) %>% as.data.frame()
   colnames(ppi) <- c("chr","xstart",'xend','readsname','height','strand') # need refine
@@ -135,8 +140,8 @@ parallel_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GEN
   ppi['pair'] <- factor(rep(seq(1,nrow(ppi)/2),each=2))
 
   # genrate gene_anno class
-  GENE1_anno <-  read_anno(GENE1_anno)
-  GENE2_anno <-  read_anno(GENE2_anno)
+  GENE1_anno <-  gene_anno(GENE1_anno)
+  GENE2_anno <-  gene_anno(GENE2_anno)
 
   VGAP = max(GENE1_anno@genelen,GENE2_anno@genelen)/3
   VEXON <- VGAP/20

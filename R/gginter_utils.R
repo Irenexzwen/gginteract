@@ -1,11 +1,16 @@
 # parallel utils ------------------------------------------------------------
 
-read_anno <- function(file_name){
-    gene_anno <- data.table::fread(file_name) %>% as.data.frame()
+#' Title Read in gene annotation dataframe
+#' Gene annotation dataframe, examples can be loaded using data(GENE1_anno)
+#' @param gene_anno Dataframe, bed file format, each row represent an exon.
+#'
+#' @return a new gene_anno class object
+#' @export
+#'
+#' @examples data(GENE1_anno) anno1 <- gene_anno(GENE1_anno)
+#' gene1 <- gene_anno(DF)
+gene_anno <- function(gene_anno){
     colnames(gene_anno) <- c("chr","start","end")
-    # gene_anno['yvalue'] <- 0       should add in other method of gene_anno
-    # gene_anno['height'] <- VEXON
-
     return(new("gene_anno",
                name = basename(file_name) %>% gsub("\\..*$","",.), # need refine NC*
                chr_num = gene_anno$chr[1] %>% gsub("chr","",.),

@@ -1,3 +1,22 @@
+#' Title Pairend interaction plot
+#'
+#' @param GENE1_anno Character, path to gene1 annotation bed file. Gene1 will be shown at left
+#' @param GENE2_anno character, path to gene2 annotation bed file. Gene2 will be shown at right.
+#' @param R1 character, path to Read1 (first end) bed file
+#' @param R2 character, path to Read2 (second end) bed file
+#' @param GENE1_COLOR character, color of left gene. In R, colors can be specified either by name (e.g col = ¡°red¡±) or as a hexadecimal RGB triplet
+#' @param GENE2_COLOR character, color of right gene. In R, colors can be specified either by name (e.g col = ¡°red¡±) or as a hexadecimal RGB triplet
+#' @param xdrift numeric. x axis drift from 0.
+#' @param ydrift numeric. y axis drift from 0.
+#' @param VEXON numeric. verticle height of exon.
+#' @param genome String. Genome version eg."hg38","mm10","mm20". default ("hg38")
+#'
+#' @return ggplot object of pairend interaction plot
+#' @export
+#'
+#' @examples
+#' data(GENE1_anno,GENE2_anno,R1,R2)
+#' pairend <- pairend_plot(GENE1_anno,GENE2_anno,R1,R2)
 pairend_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0,VEXON=10,genome="hg38"){
 
   k <- pairend_inter(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0,VEXON=10)
@@ -7,14 +26,14 @@ pairend_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2
   width_ratio <- ideo_width/k@.VEXON
 
   # ideogram
-  leftideo <- creat_ideo(genome=genome,
+  leftideo <- create_ideo(genome=genome,
                          k@geneleft@chr,
                          ideo.width=ideo_width,
                          ydrift=yd,
                          xdrift=k@.TopLeft_x,
                          whratio = width_ratio)
 
-    rightideo <- creat_ideo(genome=genome,
+    rightideo <- create_ideo(genome=genome,
                          k@generight@chr,
                          ideo.width=ideo_width,
                          ydrift=yd,
@@ -78,14 +97,34 @@ pairend_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2
 
 
 
-# pair-end inter skeleton--------------------------
+# pair-end interaction skeleton--------------------------
+
+#' Title pair-end inter skeleton
+#'
+#' @param GENE1_anno Character, path to gene1 annotation bed file. Gene1 will be shown at left.eg could be seen \code{data(GENE1_anno)}.
+#' @param GENE2_anno character, path to gene2 annotation bed file. Gene2 will be shown at right. eg could be seen \code{data(GENE2_anno)}.
+#' @param R1 Dataframe, Read1 annotation file. eg could be loaded with \code{data(R1)}.
+#' @param R2 Dataframe, Read2 annotation file. eg could be loaded with \code{data(R2)}.
+#' @param GENE1_COLOR String, with default "#deb210".
+#' @param GENE2_COLOR string, with default "#668ed1".
+#' @param xdrift numeric. x axis drift from 0.
+#' @param ydrift numeric. y axis drift from 0.
+#' @param VEXON numeric. verticle height of exon.
+#'
+#' @return pair-end inter skeleton, ggplot object
+#' @export
+#'
+#' @examples
+#' data(GENE1_anno,GENE2_anno,R1,R2)
+#' pairend_skeleton <- pairend_inter(GENE1_anno,GENE2_anno,R1,R2)
+#' ggplot()+pairend_skeleton@geom_pair
 
 pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0,VEXON=10){
 
 
   # reorganize R1 and R2 pair
-  R1_bed <- read.table(R1,header = F,stringsAsFactors = F) %>% dplyr::arrange(V4)
-  R2_bed <- read.table(R2,header = F,stringsAsFactors = F) %>% dplyr::arrange(V4)
+  R1_bed <- R1 %>% dplyr::arrange(V4)
+  R2_bed <- R2 %>% dplyr::arrange(V4)
 
   ppi <- rbind(R1_bed,R2_bed) %>% dplyr::arrange(V4) %>% as.data.frame()
   colnames(ppi) <- c("chr","xstart",'xend','readsname','height','strand') # need refine
@@ -105,8 +144,8 @@ pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
   ppi['yvalue'] <- rep(seq(1,nrow(ppi)/2)*VEXON,each=2)
 
   # genrate gene_anno class
-  GENE1_anno <-  read_anno(GENE1_anno)
-  GENE2_anno <-  read_anno(GENE2_anno)
+  GENE1_anno <-  gene_anno(GENE1_anno)
+  GENE2_anno <-  gene_anno(GENE2_anno)
 
   # set meta data
   HGAP = sum(GENE1_anno@genelen,GENE2_anno@genelen)*1.2
@@ -184,8 +223,8 @@ pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
              .BotRight_x = max(ppi$xend[ppi$chr == GENE2_anno@chr_num]),
              .Top_y = gr1$yvalue[1]+HEIGHT/2,
              .Bot_y = ppi$yvalue[1]-HEIGHT/2,
-             .gr1_left = max(gr1$end),
-             .gr2_right = min(gr2$start),
+             .gr1_right = max(gr1$end),
+             .gr2_left = min(gr2$start),
              .VEXON = VEXON))
 
 }

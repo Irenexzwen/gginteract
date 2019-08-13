@@ -2,14 +2,17 @@
 
 #' Title
 #'
-#' @param ideo
-#' @param region
-#' @param tick_len
+#' @param ideo ideo object, object to add a highlight region.
+#' @param region list, the region to highlight,
+#' @param tick_len numeric, the vertical height of the highligh region.
 #'
-#' @return
+#' @return ideo object.
 #' @export
 #'
 #' @examples
+#' ideo <- create_ideo(chr="chr4",ideo.width=400)
+#' ideo <- ideo_add_highlight(ideo, region=c(50000,60000))
+#'
 #'
 #' @include AllClass.R
 ideo_add_highlight <- function(ideo, region, tick_len = 15) {
@@ -41,8 +44,6 @@ ideo_add_highlight <- function(ideo, region, tick_len = 15) {
         legend.position = "none", panel.background = element_rect(fill = "white"), panel.grid.minor = element_line(colour = NA),
         panel.grid.major = element_line(colour = NA))))
 
-    # tick_bot <- ideo@ydrift - tick_len/2 + ideo@height/2
-    # tick_top <- ideo@ydrift + tick_len/2 + ideo@height/2
 
     ideo@geom_tick <- g1
     ideo@.tick_bot <- y_min
