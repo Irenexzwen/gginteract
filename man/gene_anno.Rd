@@ -5,7 +5,7 @@
 \title{Title Read in gene annotation dataframe
 Gene annotation dataframe, examples can be loaded using data(GENE1_anno)}
 \usage{
-gene_anno(gene_anno)
+gene_anno(gene_anno, genename = "")
 }
 \arguments{
 \item{gene_anno}{Dataframe, bed file format, each row represent an exon.}

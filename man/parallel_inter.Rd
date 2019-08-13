@@ -5,7 +5,8 @@
 \title{Title plot parallel interaction plot skeleton}
 \usage{
 parallel_inter(GENE1_anno, GENE2_anno, R1, R2, GENE1_COLOR = "#deb210",
-  GENE2_COLOR = "#668ed1", xdrift = 0, ydrift = 0)
+  GENE2_COLOR = "#668ed1", xdrift = 0, ydrift = 0, genename1 = "",
+  genename2 = "")
 }
 \arguments{
 \item{GENE1_anno}{Dataframe, gene annotaion bed file. eg could be seen \code{data(GENE1_anno)}}

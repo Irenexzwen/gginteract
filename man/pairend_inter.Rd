@@ -5,7 +5,8 @@
 \title{Title pair-end inter skeleton}
 \usage{
 pairend_inter(GENE1_anno, GENE2_anno, R1, R2, GENE1_COLOR = "#deb210",
-  GENE2_COLOR = "#668ed1", xdrift = 0, ydrift = 0, VEXON = 10)
+  GENE2_COLOR = "#668ed1", xdrift = 0, ydrift = 0, VEXON = 10,
+  genename1 = "", genename2 = "")
 }
 \arguments{
 \item{GENE1_anno}{Character, path to gene1 annotation bed file. Gene1 will be shown at left.eg could be seen \code{data(GENE1_anno)}.}
