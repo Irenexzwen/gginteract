@@ -2,7 +2,7 @@
 #'
 #' A dataset containing the basic format of a gene annotation dataframe.
 #' each row represents an exon with start and end coordinates of it.
-#' for the use of function \{code}gene_anno it requires \strong{at least first three columns}.
+#' for the use of function \code{gene_anno} it requires \strong{at least first three columns}.
 #'
 #' @format A data frame with 17 rows and 5 variables:
 #' \describe{
@@ -18,7 +18,7 @@
 #'
 #' A dataset containing the basic format of a gene annotation dataframe.
 #' each row represents an exon with start and end coordinates of it.
-#' for the use of function \{code}gene_anno it requires \strong{at least first three columns}.
+#' for the use of function \code{gene_anno} it requires \strong{at least first three columns}.
 #'
 #' @format A data frame with 7 rows and 5 variables:
 #' \describe{
