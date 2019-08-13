@@ -110,7 +110,7 @@ parallel_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
 #' @param ydrift numeric. y axis drift from 0.
 #'
 #' @return para object
-#' @export para object
+#' @export 
 #'
 #' @examples
 #' data(GENE1_anno,GENE2_anno,R1,R2)
