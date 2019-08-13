@@ -9,7 +9,7 @@
 #' @param xdrift numeric. x axis drift from 0.
 #' @param ydrift numeric. y axis drift from 0.
 #' @param VEXON numeric. verticle height of exon.
-#' @param genome String. Genome version eg."hg38","mm10","mm20". default ("hg38")
+#' @param genome String. Genome version eg."hg38","mm10","mm20". default "hg38"
 #'
 #' @return ggplot object of pairend interaction plot
 #' @export

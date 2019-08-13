@@ -3,10 +3,10 @@
 #'
 #' @param GENE1_anno Character, path to gene1 annotation bed file. Gene1 will be shown at bottom
 #' @param GENE2_anno character, path to gene2 annotation bed file. Gene2 will be shown at top.
-#' @param R1 character, path to Read1 (first end) bed file
-#' @param R2 character, path to Read2 (second end) bed file
-#' @param GENE1_COLOR character, In R, colors can be specified either by name (e.g col = ¡°red¡±) or as a hexadecimal RGB triplet
-#' @param GENE2_COLOR character.In R, colors can be specified either by name (e.g col = ¡°red¡±) or as a hexadecimal RGB triplet
+#' @param R1 character, path to Read1 "first end" bed file
+#' @param R2 character, path to Read2 "second end" bed file
+#' @param GENE1_COLOR character, In R, colors can be specified either by name 'e.g col = ¡°red¡±' or as a hexadecimal RGB triplet
+#' @param GENE2_COLOR character.In R, colors can be specified either by name 'e.g col = ¡°red¡±' or as a hexadecimal RGB triplet
 #'
 #' @return ggplot object
 #' @export
@@ -14,6 +14,7 @@
 #' @examples
 #' data(GENE1_anno,GENE2_anno,R1,R2)
 #' para <- parallel_plot(GENE1_anno,GENE2_anno,R1,R2)
+#'
 parallel_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",genome="hg38"){
 
   k <- parallel_inter(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1")
@@ -110,7 +111,7 @@ parallel_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
 #' @param ydrift numeric. y axis drift from 0.
 #'
 #' @return para object
-#' @export 
+#' @export
 #'
 #' @examples
 #' data(GENE1_anno,GENE2_anno,R1,R2)
