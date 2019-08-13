@@ -1,19 +1,21 @@
-#' Title
+#' Title Create customized ideogram ggplot object
 #'
 #' @param genome String. Genome version eg."hg38","mm10","mm20". default("hg38")
 #' @param chr String. Subchr of \code{geome} eg."chr4"
 #' @param ideo.width Numeric. Width of the ideogram ggplot object.
 #' @param ydrift Numeric. x axis dirft from 0.
 #' @param xdrift Numeric. y axis dirft from 0.
+#' @param whratio Numeric, the width and height ratio of the ideogram.
 #'
-#' @return NULL
-#' @export ideo class
+#' @return ideo class
+#' @export
 #'
 #' @examples
+#' ideo <- create_ideo(chr="chr4",ideo.width=400)
 #'
 #' @include gginter_utils.R
 #' @include AllClass.R
-creat_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=16)
+create_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=16)
 {
   options(warn=-1)
   k <-  biovizBase::getIdeogram(genome = genome,subchr = chr,cytobands = TRUE)
