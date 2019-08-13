@@ -3,10 +3,10 @@
 #'
 #' @param GENE1_anno Character, path to gene1 annotation bed file. Gene1 will be shown at bottom
 #' @param GENE2_anno character, path to gene2 annotation bed file. Gene2 will be shown at top.
-#' @param R1 character, path to Read1 "first end" bed file
-#' @param R2 character, path to Read2 "second end" bed file
-#' @param GENE1_COLOR character, In R, colors can be specified either by name 'e.g col = ¡°red¡±' or as a hexadecimal RGB triplet
-#' @param GENE2_COLOR character.In R, colors can be specified either by name 'e.g col = ¡°red¡±' or as a hexadecimal RGB triplet
+#' @param R1 character, path to Read1 (first end ) bed file
+#' @param R2 character, path to Read2 (second end) bed file
+#' @param GENE1_COLOR character, In R, colors can be specified either by name e.g col = 'red' or as a hexadecimal RGB triplet
+#' @param GENE2_COLOR character.In R, colors can be specified either by name e.g col = 'red' or as a hexadecimal RGB triplet
 #'
 #' @return ggplot object
 #' @export
