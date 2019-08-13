@@ -13,7 +13,7 @@ gene_anno <- function(gene_anno,genename=""){
     colnames(gene_anno) <- c("chr","start","end")
     return(new("gene_anno",
                #name = basename(file_name) %>% gsub("\\..*$","",.), # need refine NC*
-               name = genename
+               name = genename,
                chr_num = gene_anno$chr[1] %>% gsub("chr","",.),
                chr = gene_anno$chr[1],
                chromstart = min(gene_anno$start),
