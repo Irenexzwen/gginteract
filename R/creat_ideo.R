@@ -17,7 +17,7 @@
 #' @include AllClass.R
 create_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=16)
 {
-  options(warn=-1)
+
   k <-  biovizBase::getIdeogram(genome = genome,subchr = chr,cytobands = TRUE)
   df <- k %>% as.data.frame()
 
@@ -49,7 +49,7 @@ create_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=1
 
   ## main
   p.ideo <- list(do.call(ggplot2::geom_rect, c(list(data = df.rect),
-                                               list(do.call(aes,list(xmin = as.name("start"),
+                                               list(do.call(ggplot2::aes,list(xmin = as.name("start"),
                                                                      ymin =.ideo.range[1],
                                                                      xmax = as.name("end"),
                                                                      ymax = .ideo.range[2],
