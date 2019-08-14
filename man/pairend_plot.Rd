@@ -9,13 +9,13 @@ pairend_plot(GENE1_anno, GENE2_anno, R1, R2, GENE1_COLOR = "#deb210",
   xdrift = 0, ydrift = 0, VEXON = 10, genome = "hg38")
 }
 \arguments{
-\item{GENE1_anno}{Character, path to gene1 annotation bed file. Gene1 will be shown at left}
+\item{GENE1_anno}{Dataframe, a bed file format dataframe for gene1. each row represents an exon with chr, start, end.}
 
-\item{GENE2_anno}{character, path to gene2 annotation bed file. Gene2 will be shown at right.}
+\item{GENE2_anno}{Dataframe, a bed file format dataframe for gene2. each row represents an exon with chr, start, end.}
 
-\item{R1}{character, path to Read1 (first end) bed file}
+\item{R1}{Dataframe, a bed file format dataframe for Read1 (first end) bed file.}
 
-\item{R2}{character, path to Read2 (second end) bed file}
+\item{R2}{Dataframe, a bed file format dataframe for Read2 (second end) bed file.}
 
 \item{GENE1_COLOR}{character, color of left gene. In R, colors can be specified either by name e.g col = "red" or as a hexadecimal RGB triplet}
 

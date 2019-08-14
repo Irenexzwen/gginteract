@@ -9,13 +9,13 @@ pairend_inter(GENE1_anno, GENE2_anno, R1, R2, GENE1_COLOR = "#deb210",
   genename1 = "", genename2 = "")
 }
 \arguments{
-\item{GENE1_anno}{Character, path to gene1 annotation bed file. Gene1 will be shown at left.eg could be seen \code{data(GENE1_anno)}.}
+\item{GENE1_anno}{Dataframe, a bed file format dataframe for gene1. each row represents an exon with chr, start, end.}
 
-\item{GENE2_anno}{character, path to gene2 annotation bed file. Gene2 will be shown at right. eg could be seen \code{data(GENE2_anno)}.}
+\item{GENE2_anno}{Dataframe, a bed file format dataframe for gene2. each row represents an exon with chr, start, end.}
 
-\item{R1}{Dataframe, Read1 annotation file. eg could be loaded with \code{data(R1)}.}
+\item{R1}{Dataframe, a bed file format dataframe for Read1 (first end) bed file.}
 
-\item{R2}{Dataframe, Read2 annotation file. eg could be loaded with \code{data(R2)}.}
+\item{R2}{Dataframe, a bed file format dataframe for Read2 (second end) bed file.}
 
 \item{GENE1_COLOR}{String, with default "#deb210".}
 
