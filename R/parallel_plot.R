@@ -15,9 +15,9 @@
 #' data(GENE1_anno,GENE2_anno,R1,R2)
 #' para <- parallel_plot(GENE1_anno,GENE2_anno,R1,R2)
 #'
-parallel_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",genome="hg38"){
+parallel_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",genome="hg38",genename1="",genename2=""){
 
-  k <- parallel_inter(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1")
+  k <- parallel_inter(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",genename1 = genename1,genename2 = genename2)
 
   ideo_width <- k@.BotRight_x/2.5
   xd <- k@.BotRight_x/2 - ideo_width/2
@@ -67,7 +67,7 @@ parallel_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
   dash['group'] <- rep(seq(1,4),each=2)
 
   # plot transcript text ---------------------------------------------------
-  nudge <- k@.VEXON*3
+  nudge <- k@.VEXON
   TextDF <- data.frame(x=c(k@.TopLeft_x,k@.BotLeft_x),
                        y=c(k@.Top_y-k@.VEXON,k@.Bot_y+k@.VEXON),
                        label=c(k@genetop@name,k@genebot@name))
@@ -81,15 +81,15 @@ parallel_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
   text_bot <- paste0(k@genebot@chr,":",format_(k@genebot@chromstart),"-",format_(k@genebot@chromend))
   center <- (k@.TopLeft_x+k@.TopRight_x)/2
   ideotext <- data.frame(x=c(center,center),
-                         y=c(upideo@.tick_top,botideo@.tick_bot),
+                         y=c(upideo@.tick_top + nudge, botideo@.tick_bot - nudge),
                          labels = c(text_top,text_bot))
 
   # plot all ----------------------------------------------------
   ggplot() + k@geom_para + upideo@geom_ideobody +
     botideo@geom_ideobody +upideo@geom_tick + botideo@geom_tick +
     geom_line(data = dash, aes(x=x, y=y, group=group), linetype="dashed",color = "red")+
-    geom_text(data=TextDF,aes(x=x-nudge,y=y),label=TextDF$label)+
-    geom_text(data=ideotext, aes(x=x, y=y+nudge), label=ideotext$labels)
+    geom_text(data=TextDF,aes(x=x-nudge*3,y=y),label=TextDF$label)+
+    geom_text(data=ideotext, aes(x=x, y=y), label=ideotext$labels)
 
 
 }
@@ -129,7 +129,7 @@ parallel_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GEN
 
   #filter unpaired reads
   filter_unpair <- function(ppi){
-    count <- ppi %>% group_by(readsname) %>% dplyr::summarise(n=n())
+    count <- ppi %>% dplyr::group_by(readsname) %>% dplyr::summarise(n=n())
     test <- ppi[ppi$readsname %in% count$readsname[count$n==2], ]
     return(test)
   }
