@@ -143,8 +143,8 @@ setClass(Class="pairend",
            .BotRight_x = "numeric",
            .Top_y = "numeric",
            .Bot_y = "numeric",
-           .gr1_left = "numeric",
-           .gr2_right = "numeric",
+           .gr1_right = "numeric",
+           .gr2_left = "numeric",
            .VEXON = "numeric"
          )
 )
