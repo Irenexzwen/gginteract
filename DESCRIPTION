@@ -1,9 +1,9 @@
 Package: gginteract
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
+Title: Pairend reads interaction visualization with customized ggplot object
+Version: 1.0.0
 Author: Xingzhao Wen
-Maintainer: The package maintainer <irene.xzwen@gmail.com>
+Maintainer: Xingzhao Wen <irene.xzwen@gmail.com>
 Description: Interaction between Read pairs
 License: What license is it under?
 Encoding: UTF-8
@@ -28,3 +28,5 @@ Collate:
     'pairend_plot.R'
     'parallel_plot.R'
     'utils-pipe.R'
+Suggests: 
+    testthat
