@@ -1,11 +1,12 @@
 #' Title Create customized ideogram ggplot object
 #'
 #' @param genome String. Genome version eg."hg38","mm10","mm20". default("hg38")
-#' @param chr String. Subchr of \code{geome} eg."chr4"
+#' @param chr String. chromosome name eg."chr4".
 #' @param ideo.width Numeric. Width of the ideogram ggplot object.
+#' @param ideo.height Numeric. Height of the ideogram, if missing, then height would be calculated by ideo.width/whratio.
 #' @param ydrift Numeric. x axis dirft from 0.
 #' @param xdrift Numeric. y axis dirft from 0.
-#' @param whratio Numeric, the width and height ratio of the ideogram.
+#' @param whratio Numeric, the width/height ratio of the ideogram.
 #'
 #' @return ideo class
 #' @export
@@ -15,7 +16,7 @@
 #'
 #' @include gginter_utils.R
 #' @include AllClass.R
-create_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=16)
+create_ideo <- function(genome="hg38",chr,ideo.width, ideo.height, ydrift=0,xdrift=0,whratio=16)
 {
 
   k <-  biovizBase::getIdeogram(genome = genome,subchr = chr,cytobands = TRUE)
@@ -24,7 +25,9 @@ create_ideo <- function(genome="hg38",chr,ideo.width,ydrift=0,xdrift=0,whratio=1
   chr_start <- 1
   chr_end <- max(df$end)
 
-  ideo.height <- ideo.width/whratio
+  if(missing(ideo.height)){
+    ideo.height <- ideo.width/whratio
+  }
 
   if(ydrift>0){
     .ideo.range <- c(ydrift,ydrift+ideo.height)
