@@ -1,9 +1,9 @@
 #' Title Pairend interaction plot
 #'
-#' @param GENE1_anno Character, path to gene1 annotation bed file. Gene1 will be shown at left
-#' @param GENE2_anno character, path to gene2 annotation bed file. Gene2 will be shown at right.
-#' @param R1 character, path to Read1 (first end) bed file
-#' @param R2 character, path to Read2 (second end) bed file
+#' @param GENE1_anno Dataframe, a bed file format dataframe for gene1. each row represents an exon with chr, start, end.
+#' @param GENE2_anno Dataframe, a bed file format dataframe for gene2. each row represents an exon with chr, start, end.
+#' @param R1 Dataframe, a bed file format dataframe for Read1 (first end) bed file.
+#' @param R2 Dataframe, a bed file format dataframe for Read2 (second end) bed file.
 #' @param GENE1_COLOR character, color of left gene. In R, colors can be specified either by name e.g col = "red" or as a hexadecimal RGB triplet
 #' @param GENE2_COLOR character, color of right gene. In R, colors can be specified either by name e.g col = "red" or as a hexadecimal RGB triplet
 #' @param xdrift numeric. x axis drift from 0.
@@ -103,10 +103,10 @@ pairend_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2
 
 #' Title pair-end inter skeleton
 #'
-#' @param GENE1_anno Character, path to gene1 annotation bed file. Gene1 will be shown at left.eg could be seen \code{data(GENE1_anno)}.
-#' @param GENE2_anno character, path to gene2 annotation bed file. Gene2 will be shown at right. eg could be seen \code{data(GENE2_anno)}.
-#' @param R1 Dataframe, Read1 annotation file. eg could be loaded with \code{data(R1)}.
-#' @param R2 Dataframe, Read2 annotation file. eg could be loaded with \code{data(R2)}.
+#' @param GENE1_anno Dataframe, a bed file format dataframe for gene1. each row represents an exon with chr, start, end.
+#' @param GENE2_anno Dataframe, a bed file format dataframe for gene2. each row represents an exon with chr, start, end.
+#' @param R1 Dataframe, a bed file format dataframe for Read1 (first end) bed file.
+#' @param R2 Dataframe, a bed file format dataframe for Read2 (second end) bed file.
 #' @param GENE1_COLOR String, with default "#deb210".
 #' @param GENE2_COLOR string, with default "#668ed1".
 #' @param xdrift numeric. x axis drift from 0.
