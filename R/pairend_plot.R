@@ -18,9 +18,10 @@
 #' data(GENE1_anno,GENE2_anno,R1,R2)
 #' pairend <- pairend_plot(GENE1_anno,GENE2_anno,R1,R2)
 #'
-pairend_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0,VEXON=10,genome="hg38"){
+pairend_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",genename1 = "", genename2 = "", xdrift=0,ydrift=0,VEXON=10,genome="hg38"){
 
-  k <- pairend_inter(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0,VEXON=10)
+
+  k <- pairend_inter(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0,VEXON=10, genename1 = genename1, genename2 = genename2)
 
   ideo_width <- (k@.TopRight_x - k@.TopLeft_x)/3
   yd <- k@.Top_y + k@.VEXON # ydrift
@@ -56,9 +57,9 @@ pairend_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2
   dash <- data.frame(x = c(leftideo@.leftregion,
                            k@.TopLeft_x,
                            leftideo@.rightregion,
-                           k@.gr1_left,
+                           k@.gr1_right,
                            rightideo@.leftregion,
-                           k@.gr2_right,
+                           k@.gr2_left,
                            rightideo@.rightregion,
                            k@.TopRight_x),
                      y = c(leftideo@.tick_bot,
@@ -132,7 +133,7 @@ pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
 
   #filter unpaired reads
   filter_unpair <- function(ppi){
-    count <- ppi %>% group_by(readsname) %>% dplyr::summarise(n=n())
+    count <- ppi %>% dplyr::group_by(readsname) %>% dplyr::summarise(n=n())
     test <- ppi[ppi$readsname %in% count$readsname[count$n==2], ]
     return(test)
   }
