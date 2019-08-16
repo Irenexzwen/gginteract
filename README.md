@@ -63,7 +63,9 @@ $R
                                     R1 = R1,
                                     R2 = R2,
                                     genename1 = "DDX23",
-                                    genename2 = "RPS7")
+                                    genename2 = "RPS7",
+                                    GENE1_COLOR="#deb210",
+                                    GENE2_COLOR="#668ed1")
 > para
 ```
 <img src="https://github.com/Irenexzwen/gginteract/blob/master/images/para.png" width="600">
@@ -120,6 +122,21 @@ $R
 ```
  <img src="https://github.com/Irenexzwen/gginteract/blob/master/images/ideogram_coord.png" width="600">
  
+###### Add highlight region on an ideogram
+gginteract provide a simple function to highlight a region of interest on an ideogram.
+```R
+$R
+# ideo highlight
+> i <- create_ideo(chr="chr4",ideo.width = 200,ideo.height = 10)
+> i@chr_end   #[1] 190214555
+> i <- ideo_add_highlight(i,region = c(80000000,90000000))
+> ggplot() + i@geom_ideobody + i@geom_tick  # use this code to show the single object.
+```
+An `ideo` object **i** now has the following slots of features:
+
+<img src="https://github.com/Irenexzwen/gginteract/blob/master/images/ideo_highlight.png" width="600">
+
+
 ### 2. Parallel skeleton
 
 The skeleton of parallel style interaction plot could be generate with the `parallel_inter` function:
