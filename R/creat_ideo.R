@@ -18,6 +18,8 @@
 #' @include AllClass.R
 create_ideo <- function(genome="hg38",chr,ideo.width, ideo.height, ydrift=0,xdrift=0,whratio=16)
 {
+  if (!(ideo.width>0))
+    stop("The ideo width should be positive value!")
 
   k <-  biovizBase::getIdeogram(genome = genome,subchr = chr,cytobands = TRUE)
   df <- k %>% as.data.frame()
@@ -29,11 +31,11 @@ create_ideo <- function(genome="hg38",chr,ideo.width, ideo.height, ydrift=0,xdri
     ideo.height <- ideo.width/whratio
   }
 
-  if(ydrift>0){
-    .ideo.range <- c(ydrift,ydrift+ideo.height)
+  if(ydrift>=0){
+    .ideo.range <- c(ydrift,ydrift+ideo.height) # ideo bottom line align with ydrift
     }
   else{
-    .ideo.range <- c(ydrift-ideo.height,ydrift)
+    .ideo.range <- c(ydrift-ideo.height,ydrift) # ideo up line align with ydrift
   }
 
   scale <- max(df$end)/ideo.width
