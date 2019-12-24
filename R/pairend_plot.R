@@ -78,8 +78,8 @@ pairend_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2
   format_ <- function(x){
     return(formatC(x,format = "f", big.mark = ",",drop0trailing = T))
   }
-  text_right <- paste0(k@geneleft@chr,":",format_(k@geneleft@chromstart),"-",format_(k@geneleft@chromend))
-  text_left <- paste0(k@generight@chr,":",format_(k@generight@chromstart),"-",format_(k@generight@chromend))
+  text_left <- paste0(k@geneleft@chr,":",format_(k@geneleft@chromstart),"-",format_(k@geneleft@chromend))
+  text_right <- paste0(k@generight@chr,":",format_(k@generight@chromstart),"-",format_(k@generight@chromend))
   left_center <- (leftideo@.ideo_left+leftideo@.ideo_right)/2
   right_center <- (rightideo@.ideo_left+rightideo@.ideo_right)/2
   ideotext <- data.frame(x=c(left_center,right_center),
