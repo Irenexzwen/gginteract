@@ -217,8 +217,8 @@ pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
 
   return(new("pairend",
              geom_pair = p,
-             geneleft =  GENE2_anno,
-             generight = GENE1_anno,
+             geneleft =  GENE1_anno,
+             generight = GENE2_anno,
              .TopLeft_x = min(gr1$start),
              .TopRight_x = max(gr2$end),
              .BotLeft_x = min(ppi$xstart[ppi$chr == GENE1_anno@chr_num]),
