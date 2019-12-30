@@ -21,7 +21,11 @@ create_ideo <- function(genome="hg38",chr,ideo.width, ideo.height, ydrift=0,xdri
   if (!(ideo.width>0))
     stop("The ideo width should be positive value!")
 
-  k <-  biovizBase::getIdeogram(genome = genome,subchr = chr,cytobands = TRUE)
+  CHR=chr
+  if(chr=="23"){CHR="X"}
+  if(chr=="24"){CHR="Y"}
+  
+  k <-  biovizBase::getIdeogram(genome = genome,subchr = CHR,cytobands = TRUE)
   df <- k %>% as.data.frame()
 
   chr_start <- 1
