@@ -142,8 +142,6 @@ pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
 
   # reform chr name accepts both NC* or chr*
   ppi$chr <- ppi$chr %>% gsub("^NC_0{4}0?","",.) %>% gsub("\\..*$","",.) %>% gsub("[Cc]hr","",.)
-  ppi$chr[ppi$chr==23] <- "X"
-  ppi$chr[ppi$chr==24] <- "Y"
   ppi['pair'] <- factor(rep(seq(1,nrow(ppi)/2),each=2))
   ppi['yvalue'] <- rep(seq(1,nrow(ppi)/2)*VEXON,each=2)
 
