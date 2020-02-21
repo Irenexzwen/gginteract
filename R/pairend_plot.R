@@ -196,7 +196,7 @@ pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
 
 
   p <- list(
-    geom_line(data=ppi,aes(xstart,y=yvalue+HEIGHT/2,group=pair),size=0.1,color="darkgrey"),
+    geom_line(data=ppi,aes(xstart,y=yvalue+HEIGHT/2,group=pair),size=0.7,color="darkgrey"),
     geom_rect(data=ppi_left,aes(xmin=xstart,ymin=yvalue,xmax=xend,ymax=yvalue+HEIGHT),color=GENE1_COLOR,fill=GENE1_COLOR),
     geom_rect(data=ppi_right,aes(xmin=xstart,ymin=yvalue,xmax=xend,ymax=yvalue+HEIGHT),color=GENE2_COLOR,fill=GENE2_COLOR),
     geom_line(data=gr1,aes(start,y=yvalue),size=1,color="darkgrey"),
