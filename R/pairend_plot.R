@@ -204,12 +204,12 @@ pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
 
 
   p <- list(
-    geom_line(data=ppi,aes(xstart,y=yvalue+HEIGHT/2,group=pair),size=anno_line_width,color="darkgrey"),
+    geom_line(data=ppi,aes(xstart,y=yvalue+HEIGHT/2,group=pair),size=pair_line_width ,color="darkgrey"),
     geom_rect(data=ppi_left,aes(xmin=xstart,ymin=yvalue,xmax=xend,ymax=yvalue+HEIGHT),color=GENE1_COLOR,fill=GENE1_COLOR),
     geom_rect(data=ppi_right,aes(xmin=xstart,ymin=yvalue,xmax=xend,ymax=yvalue+HEIGHT),color=GENE2_COLOR,fill=GENE2_COLOR),
-    geom_line(data=gr1,aes(start,y=yvalue),size=pair_line_width,color=GENE1_COLOR),
+    geom_line(data=gr1,aes(start,y=yvalue),size=anno_line_width,color=GENE1_COLOR),
     geom_rect(data=gr1,aes(xmin=start,ymin=yvalue-HEIGHT/2,xmax=end,ymax=yvalue+HEIGHT/2),color=GENE1_COLOR,fill=GENE1_COLOR),
-    geom_line(data=gr2,aes(start,y=yvalue),size=pair_line_width,color=GENE2_COLOR),
+    geom_line(data=gr2,aes(start,y=yvalue),size=anno_line_width,color=GENE2_COLOR),
     geom_rect(data=gr2,aes(xmin=start,ymin=yvalue-HEIGHT/2,xmax=end,ymax=yvalue+HEIGHT/2),color=GENE2_COLOR,fill=GENE2_COLOR),
     geom_text(data=TextDF,aes(x=x,y=y),label=TextDF$label,color="darkgrey"),
     theme(axis.line=element_blank(),axis.text.x=element_blank(),
