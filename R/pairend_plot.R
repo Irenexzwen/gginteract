@@ -122,7 +122,7 @@ pairend_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2
 #' pairend_skeleton <- pairend_inter(GENE1_anno,GENE2_anno,R1,R2)
 #' ggplot()+pairend_skeleton@geom_pair
 
-pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0,VEXON=10,genename1="",genename2=""){
+pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0,VEXON=8,genename1="",genename2=""){
 
 
   # reorganize R1 and R2 pair
@@ -200,10 +200,10 @@ pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
     geom_line(data=ppi,aes(xstart,y=yvalue+HEIGHT/2,group=pair),size=0.7,color="darkgrey"),
     geom_rect(data=ppi_left,aes(xmin=xstart,ymin=yvalue,xmax=xend,ymax=yvalue+HEIGHT),color=GENE1_COLOR,fill=GENE1_COLOR),
     geom_rect(data=ppi_right,aes(xmin=xstart,ymin=yvalue,xmax=xend,ymax=yvalue+HEIGHT),color=GENE2_COLOR,fill=GENE2_COLOR),
-    geom_line(data=gr1,aes(start,y=yvalue),size=1,color="darkgrey"),
-    geom_rect(data=gr1,aes(xmin=start,ymin=yvalue-HEIGHT/2,xmax=end,ymax=yvalue+HEIGHT/2),color="darkgrey",fill="darkgrey"),
-    geom_line(data=gr2,aes(start,y=yvalue),size=1,color="darkgrey"),
-    geom_rect(data=gr2,aes(xmin=start,ymin=yvalue-HEIGHT/2,xmax=end,ymax=yvalue+HEIGHT/2),color="darkgrey",fill="darkgrey"),
+    geom_line(data=gr1,aes(start,y=yvalue),size=1,color=GENE1_COLOR),
+    geom_rect(data=gr1,aes(xmin=start,ymin=yvalue-HEIGHT/2,xmax=end,ymax=yvalue+HEIGHT/2),color=GENE1_COLOR,fill=GENE1_COLOR),
+    geom_line(data=gr2,aes(start,y=yvalue),size=1,color=GENE2_COLOR),
+    geom_rect(data=gr2,aes(xmin=start,ymin=yvalue-HEIGHT/2,xmax=end,ymax=yvalue+HEIGHT/2),color=GENE2_COLOR,fill=GENE2_COLOR),
     geom_text(data=TextDF,aes(x=x,y=y),label=TextDF$label,color="darkgrey"),
     theme(axis.line=element_blank(),axis.text.x=element_blank(),
           axis.text.y=element_blank(),axis.ticks=element_blank(),
