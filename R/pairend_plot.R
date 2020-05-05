@@ -10,6 +10,7 @@
 #' @param ydrift numeric. y axis drift from 0.
 #' @param VEXON numeric. verticle height of exon.
 #' @param genome String. Genome version eg."hg38","mm10","mm20". default "hg38"
+#' @param MOVESCALE numeric. Control the space between two genes. The scale is parameter between sum(GENE1_anno@genelen,GENE2_anno@genelen)*MOVESCALE.
 #'
 #' @return ggplot object of pairend interaction plot
 #' @export pairend_plot
@@ -19,7 +20,8 @@
 #' pairend <- pairend_plot(GENE1_anno,GENE2_anno,R1,R2)
 #'
 pairend_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",
-                         genename1 = "", genename2 = "", xdrift=0,ydrift=0,VEXON=10,genome="hg38",MOVESCALE = 1){
+                         genename1 = "", genename2 = "", xdrift=0,ydrift=0,VEXON=10,genome="hg38",MOVESCALE = 1,
+                        anno_line_width = 0.7, pair_line_width = 0.5){
 
   k <- pairend_inter(GENE1_anno,GENE2_anno,R1,R2,
                      GENE1_COLOR=GENE1_COLOR,GENE2_COLOR=GENE2_COLOR,
@@ -125,7 +127,8 @@ pairend_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2
 #' ggplot()+pairend_skeleton@geom_pair
 
 pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",
-                          xdrift=0,ydrift=0,VEXON=8,genename1="",genename2="", MOVESCALE = 1){
+                          xdrift=0,ydrift=0,VEXON=8,genename1="",genename2="", MOVESCALE = 1,
+                         anno_line_width = 0.7, pair_line_width = 0.5){
 
 
   # reorganize R1 and R2 pair
@@ -200,12 +203,12 @@ pairend_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE
 
 
   p <- list(
-    geom_line(data=ppi,aes(xstart,y=yvalue+HEIGHT/2,group=pair),size=0.7,color="darkgrey"),
+    geom_line(data=ppi,aes(xstart,y=yvalue+HEIGHT/2,group=pair),size=anno_line_width,color="darkgrey"),
     geom_rect(data=ppi_left,aes(xmin=xstart,ymin=yvalue,xmax=xend,ymax=yvalue+HEIGHT),color=GENE1_COLOR,fill=GENE1_COLOR),
     geom_rect(data=ppi_right,aes(xmin=xstart,ymin=yvalue,xmax=xend,ymax=yvalue+HEIGHT),color=GENE2_COLOR,fill=GENE2_COLOR),
-    geom_line(data=gr1,aes(start,y=yvalue),size=1,color=GENE1_COLOR),
+    geom_line(data=gr1,aes(start,y=yvalue),size=pair_line_width,color=GENE1_COLOR),
     geom_rect(data=gr1,aes(xmin=start,ymin=yvalue-HEIGHT/2,xmax=end,ymax=yvalue+HEIGHT/2),color=GENE1_COLOR,fill=GENE1_COLOR),
-    geom_line(data=gr2,aes(start,y=yvalue),size=1,color=GENE2_COLOR),
+    geom_line(data=gr2,aes(start,y=yvalue),size=pair_line_width,color=GENE2_COLOR),
     geom_rect(data=gr2,aes(xmin=start,ymin=yvalue-HEIGHT/2,xmax=end,ymax=yvalue+HEIGHT/2),color=GENE2_COLOR,fill=GENE2_COLOR),
     geom_text(data=TextDF,aes(x=x,y=y),label=TextDF$label,color="darkgrey"),
     theme(axis.line=element_blank(),axis.text.x=element_blank(),
