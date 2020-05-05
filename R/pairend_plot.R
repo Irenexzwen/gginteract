@@ -21,7 +21,8 @@
 pairend_plot <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",genename1 = "", genename2 = "", xdrift=0,ydrift=0,VEXON=10,genome="hg38"){
 
 
-  k <- pairend_inter(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0,VEXON=10, genename1 = genename1, genename2 = genename2)
+  #k <- pairend_inter(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GENE2_COLOR="#668ed1",xdrift=0,ydrift=0,VEXON=10, genename1 = genename1, genename2 = genename2)
+  k <- pairend_inter(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR=GENE1_COLOR,GENE2_COLOR=GENE2_COLOR,xdrift=0,ydrift=0,VEXON=10, genename1 = genename1, genename2 = genename2)
 
   ideo_width <- (k@.TopRight_x - k@.TopLeft_x)/3
   yd <- k@.Top_y + k@.VEXON # ydrift
