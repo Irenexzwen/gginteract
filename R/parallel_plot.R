@@ -129,7 +129,7 @@ parallel_inter <- function(GENE1_anno,GENE2_anno,R1,R2,GENE1_COLOR="#deb210",GEN
 
   #filter unpaired reads
   filter_unpair <- function(ppi){
-    count <- ppi %>% dplyr::group_by(readsname) %>% dplyr::summarise(n=n())
+    count <- ppi %>% dplyr::group_by(readsname) %>% dplyr::summarize(n=n())
     test <- ppi[ppi$readsname %in% count$readsname[count$n==2], ]
     return(test)
   }
